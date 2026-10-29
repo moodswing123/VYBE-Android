@@ -19,25 +19,37 @@ jobs:
 
       - name: Setup Android SDK environment
         run: |
-          echo "ANDROID_HOME=$ANDROID_HOME"
-          echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT"
-          # Ensure the SDK is available
-          if [ -z "$ANDROID_HOME" ] && [ -z "$ANDROID_SDK_ROOT" ]; then
-            echo "ANDROID_HOME=$ANDROID_SDK_ROOT" >> $GITHUB_ENV
+          # On ubuntu-latest, the Android SDK is pre-installed at $ANDROID_HOME / $ANDROID_SDK_ROOT
+          SDK_ROOT="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}}"
+          echo "ANDROID_HOME=$SDK_ROOT" >> $GITHUB_ENV
+          echo "ANDROID_SDK_ROOT=$SDK_ROOT" >> $GITHUB_ENV
+
+          # Locate sdkmanager in cmdline-tools
+          SDKMANAGER_DIR=""
+          if [ -x "$SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" ]; then
+            SDKMANAGER_DIR="$SDK_ROOT/cmdline-tools/latest/bin"
+          elif [ -x "$SDK_ROOT/cmdline-tools/bin/sdkmanager" ]; then
+            SDKMANAGER_DIR="$SDK_ROOT/cmdline-tools/bin"
+          else
+            # Search any versioned cmdline-tools directory
+            FOUND=$(find "$SDK_ROOT/cmdline-tools" -maxdepth 2 -name sdkmanager -type f -executable 2>/dev/null | head -1)
+            if [ -n "$FOUND" ]; then
+              SDKMANAGER_DIR="$(dirname "$FOUND")"
+            fi
           fi
-          # Use the pre-installed SDK from the runner
-          SDK_PATH="${ANDROID_SDK_ROOT:-$ANDROID_HOME}"
-          if [ -z "$SDK_PATH" ]; then
-            echo "Android SDK not found. Setting up..."
-            mkdir -p $ANDROID_HOME
-            SDK_PATH=$ANDROID_HOME
+
+          if [ -z "$SDKMANAGER_DIR" ]; then
+            echo "ERROR: sdkmanager not found under $SDK_ROOT" >&2
+            exit 1
           fi
-          echo "SDK_PATH=$SDK_PATH" >> $GITHUB_ENV
-          echo "ANDROID_HOME=$SDK_PATH" >> $GITHUB_ENV
-          echo "ANDROID_SDK_ROOT=$SDK_PATH" >> $GITHUB_ENV
+
+          echo "SDKMANAGER_DIR=$SDKMANAGER_DIR" >> $GITHUB_ENV
+          echo "$SDKMANAGER_DIR" >> $GITHUB_PATH
+
+          echo "Using sdkmanager at: $SDKMANAGER_DIR/sdkmanager"
 
       - name: Accept Android SDK licenses
-        run: yes | sdkmanager --licenses
+        run: yes | sdkmanager --licenses || true
 
       - name: Install Android SDK packages
         run: |
