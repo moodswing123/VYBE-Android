@@ -1,0 +1,28 @@
+# VYBE Launcher Icon Backup
+# Original Telegram icon assets preserved for reference
+
+Original Files:
+- TMessagesProj/src/main/res/mipmap-anydpi-v26/ic_launcher.xml
+- TMessagesProj/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml
+- TMessagesProj/src/main/res/mipmap-anydpi-v26/icon_2_launcher.xml
+- TMessagesProj/src/main/res/mipmap-anydpi-v26/icon_3_launcher.xml
+- TMessagesProj/src/main/res/mipmap-anydpi-v26/icon_4_launcher.xml
+- TMessagesProj/src/main/res/mipmap-anydpi-v26/icon_5_launcher.xml
+- TMessagesProj/src/main/res/mipmap-anydpi-v26/icon_6_launcher.xml
+
+- TMessagesProj/src/main/res/mipmap-anydpi-v26/icon_2_launcher_round.xml
+- TMessagesProj/src/main/res/mipmap-anydpi-v26/icon_3_launcher_round.xml
+- TMessagesProj/src/main/res/mipmap-anydpi-v26/icon_4_launcher_round.xml
+- TMessagesProj/src/main/res/mipmap-anydpi-v26/icon_5_launcher_round.xml
+- TMessagesProj/src/main/res/mipmap-anydpi-v26/icon_6_launcher_round.xml
+
+- TMessagesProj/src/main/res/mipmap-anydpi-v26/icon_foreground.xml
+- TMessagesProj/src/main/res/mipmap-anydpi-v26/icon_foreground_round.xml
+
+- TMessagesProj/src/main/res/drawable/icon_background.xml
+- TMessagesProj/src/main/res/drawable/icon_plane.xml
+- TMessagesProj/src/main/res/drawable/icon_background_round.xml
+
+- All density-specific PNG files in mipmap-*dpi directories
+
+These assets are preserved and should not be modified.

@@ -1,0 +1,54 @@
+# VYBE Launcher Icon Design Specifications
+
+## Design Theme
+- **Background**: Dark navy (#1A237E) with violet-to-cyan gradient
+- **Foreground**: Bold white "V" symbol
+- **Monochrome**: White "V" symbol for monochrome icons
+- **Round Variants**: Blue-to-pink-to-green gradient background
+
+## Adaptive Icon Structure (Android 13+)
+- **Background**: `icon_background_vybe.xml` (gradient)
+- **Foreground**: `icon_foreground_vybe.xml` (vector V symbol)
+- **Monochrome**: `icon_plane_vybe.xml` (simple V symbol)
+
+## Density-Specific Assets
+- **hdpi**: 48x48 dp
+- **mdpi**: 36x36 dp
+- **xhdpi**: 72x72 dp
+- **xxhdpi**: 96x96 dp
+- **xxxhdpi**: 144x144 dp
+
+## Icon Files Created
+- `TMessagesProj/src/main/res/mipmap-anydpi-v26/ic_launcher_vybe.xml`
+- `TMessagesProj/src/main/res/mipmap-anydpi-v26/ic_launcher_round_vybe.xml`
+- `TMessagesProj/src/main/res/drawable/icon_background_vybe.xml`
+- `TMessagesProj/src/main/res/drawable/icon_foreground_vybe.xml`
+- `TMessagesProj/src/main/res/drawable/icon_plane_vybe.xml`
+- `TMessagesProj/src/main/res/drawable/icon_background_round_vybe.xml`
+- `TMessagesProj/src/main/res/drawable/icon_foreground_round_vybe.xml`
+
+## Android Manifest Updates
+- `TMessagesProj/config/debug/AndroidManifest.xml`
+- `TMessagesProj/config/debug/AndroidManifest_SDK23.xml`
+- `TMessagesProj/config/release/AndroidManifest.xml`
+- `TMessagesProj/config/release/AndroidManifest_SDK23.xml`
+
+## Alternate Icons Preserved
+The original Telegram alternate icons are preserved:
+- VintageIcon (icon_6_launcher)
+- AquaIcon (icon_4_launcher)
+- PremiumIcon (icon_3_launcher)
+- TurboIcon (icon_5_launcher)
+- NoxIcon (icon_2_launcher)
+
+## Backup Location
+All original Telegram icon assets are preserved in:
+`/workspace/icon_backup/`
+
+## Preview Instructions
+1. Open the project in Android Studio
+2. Clean and rebuild the project
+3. Install the app on an Android device or emulator
+4. The app should display the VYBE launcher icon
+5. Check both regular and round icons
+6. Verify the icon appears correctly on different screen densities

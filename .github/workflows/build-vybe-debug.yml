@@ -1,0 +1,50 @@
+name: Build VYBE Debug APK
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17 (Temurin)
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          packages: |
+            platforms;android-36
+            build-tools;36.0.0
+            ndk;27.2.12479018
+            cmake;3.22.1
+
+      - name: Make gradlew executable
+        run: chmod +x gradlew
+
+      - name: Build VYBE debug APK
+        env:
+          GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx4g -XX:MaxMetaspaceSize=512m"
+        run: ./gradlew :TMessagesProj_App:assembleAfatDebug --no-daemon
+
+      - name: Verify APK exists
+        run: |
+          set -e
+          APK="TMessagesProj_App/build/outputs/apk/afat/debug/app.apk"
+          test -f "$APK"
+          test -s "$APK"
+          echo "APK verified: $APK ($(stat -c%s "$APK") bytes)"
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: vybe-debug-apk
+          path: TMessagesProj_App/build/outputs/apk/afat/debug/app.apk
+          if-no-files-found: error
