@@ -231,7 +231,7 @@ android {
         }
     }
 
-    namespace 'com.vybe.messenger'
+    namespace 'org.telegram.messenger'
 }
 
 
